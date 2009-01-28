@@ -1,4 +1,3 @@
-
 module Logging
 
   # The +Logger+ class is the primary interface to the +Logging+ framework.
@@ -25,6 +24,7 @@ module Logging
   class Logger
 
     @mutex = Mutex.new  # :nodoc:
+    attr_accessor :sync
 
     class << self
 
@@ -170,6 +170,7 @@ module Logging
       @appenders.each {|a| a << msg}
       @parent << msg if @additive
     end
+    alias :write :<<
 
     # call-seq:
     #    add( severity, message = nil ) {block}
